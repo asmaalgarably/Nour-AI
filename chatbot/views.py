@@ -47,7 +47,7 @@ def chat_api(request):
 
 
 
-@login_required
+
 @require_POST
 def save_mood(request):
     data = json.loads(request.body)
@@ -55,7 +55,7 @@ def save_mood(request):
     MoodEntry.objects.create(user=request.user, mood_value=mood_value)
     return JsonResponse({'status': 'ok'})
 
-@login_required
+
 def dashboard(request):
     recent_sessions = Session.objects.filter(user=request.user).order_by('-date')[:3]
     sessions_count = Session.objects.filter(user=request.user).count()
