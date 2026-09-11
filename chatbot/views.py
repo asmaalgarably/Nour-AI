@@ -19,9 +19,6 @@ def about(request):
 def chat(request):
     return render(request, 'chat/chat.html')
 
-def dashboard(request):
-    return render(request, 'chat/dashboard.html')
-
 def resources(request):
     return render(request, 'chat/resources.html')
 
@@ -50,24 +47,38 @@ def chat_api(request):
 
 @require_POST
 def save_mood(request):
-    data = json.loads(request.body)
-    mood_value = data.get('mood_value')
+    try:
+        data = json.loads(request.body)
+        mood_value = int(data.get('mood_value'))
+    except (TypeError, ValueError):
+        return JsonResponse({'error': 'Invalid request'}, status=400)
+    if not request.user.is_authenticated:
+        return JsonResponse({'error': 'Authentication required'}, status=401)
     MoodEntry.objects.create(user=request.user, mood_value=mood_value)
     return JsonResponse({'status': 'ok'})
 
 
 def dashboard(request):
+    if not request.user.is_authenticated:
+        return render(request, 'chat/dashboard.html', {
+            'recent_sessions': [],
+            'sessions_count': 0,
+            'latest_mood': None,
+            'day_streak': 0,
+            'stability_level': 'لا يوجد بيانات كافية',
+        })
+
     recent_sessions = Session.objects.filter(user=request.user).order_by('-date')[:3]
     sessions_count = Session.objects.filter(user=request.user).count()
     latest_mood = MoodEntry.objects.filter(user=request.user).order_by('-timestamp').first()
 
     context = {
-    'recent_sessions': recent_sessions,
-    'sessions_count': sessions_count,
-    'latest_mood': latest_mood,
-    'day_streak': calculate_streak(request.user),
-    'stability_level': calculate_stability(request.user),
-}
+        'recent_sessions': recent_sessions,
+        'sessions_count': sessions_count,
+        'latest_mood': latest_mood,
+        'day_streak': calculate_streak(request.user),
+        'stability_level': calculate_stability(request.user),
+    }
     return render(request, 'chat/dashboard.html', context)
 def calculate_streak(user):
     """بيحسب كم يوم متتالي (من اليوم للخلف) فيه مزاج مسجل، بدون انقطاع"""
