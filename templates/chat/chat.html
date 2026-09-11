@@ -1,0 +1,70 @@
+
+{%load static%}
+
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محادثة | Nour AI</title>
+    <link rel="icon" type="image/svg+xml" href="{% static 'assets/favicon.svg' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <div class="ambient-bg"></div>
+
+    <header>
+        <div class="nav-container">
+            <a href="{% url 'index' %}" class="logo"><span>Nour AI</span></a>
+            <ul class="nav-menu">
+                <li><a href="{% url 'index' %}" class="nav-link" data-translate="nav_home">الرئيسية</a></li>
+                <li><a href="{% url 'dashboard' %}" class="nav-link" data-translate="nav_dashboard">لوحة التحكم</a></li>
+                <li><a href="{% url 'resources' %}" class="nav-link" data-translate="nav_resources">المصادر</a></li>
+                <li><a href="{% url 'about' %}" class="nav-link" data-translate="nav_about">حول الذكاء الاصطناعي</a></li>
+            </ul>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <button class="theme-toggle lang-toggle" onclick="toggleLanguage()" aria-label="تبديل اللغة">
+                    <span class="lang-toggle-text">English</span>
+                </button>
+                <button class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" aria-label="تبديل المظهر">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!--
+            Backend note (الأهم بهاي الصفحة):
+            - #chatWindow لازم يتعبى مبدئياً من الـ view بآخر رسائل المحادثة (Message model: sender, text, timestamp)
+              مرتبطة بـ Session واحدة للمستخدم الحالي.
+            - #chatForm بيبعت POST لـ endpoint متل /api/chat/send مع نص الرسالة، وعندك ترجع رد الموديل
+              (اللي شغال بـ prompt engineering) كـ JSON، وبعدين script.js بيضيفه كـ .msg-bot.
+            - نفس الـ script.js فيه دالة initChatPage() جاهزة، بس لازم تستبدلي الـ setTimeout()
+              بـ fetch() حقيقي لما يخلص الباك.
+        -->
+        <div class="chat-shell">
+            <div class="chat-window" id="chatWindow">
+                <div class="msg msg-bot">
+                    أهلاً فيك 🌙 أنا Nour AI، منستطيع نحكي هون بكل خصوصية وأمان. كيف حابب تبلّش اليوم؟
+                    <div class="msg-time">9:12 ص</div>
+                </div>
+            </div>
+
+            <form class="chat-input-bar" id="chatForm">
+                {% csrf_token %}
+                <input type="text" id="chatInput" placeholder="اكتب شو عم تحس فيه..." autocomplete="off">
+                <button type="submit" class="chat-send-btn" aria-label="إرسال">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </form>
+            <p class="chat-disclaimer">Nour AI رفيق داعم، مش بديل عن استشارة مختص نفسي عند الحاجة</p>
+        </div>
+    </main>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

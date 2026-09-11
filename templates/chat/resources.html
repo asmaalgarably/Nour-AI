@@ -1,0 +1,114 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المصادر | Nour AI</title>
+    <link rel="icon" type="image/svg+xml" href="{% static 'assets/favicon.svg' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <div class="ambient-bg"></div>
+
+    <header>
+        <div class="nav-container">
+            <a href="{% url 'index' %}" class="logo"><span>Nour AI</span></a>
+            <ul class="nav-menu">
+                <li><a href="{% url 'index' %}" class="nav-link" data-translate="nav_home">الرئيسية</a></li>
+                <li><a href="{% url 'dashboard' %}" class="nav-link" data-translate="nav_dashboard">لوحة التحكم</a></li>
+                <li><a href="{% url 'resources' %}" class="nav-link active" data-translate="nav_resources">المصادر</a></li>
+                <li><a href="{% url 'about' %}" class="nav-link" data-translate="nav_about">حول الذكاء الاصطناعي</a></li>
+            </ul>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <button class="theme-toggle lang-toggle" onclick="toggleLanguage()" aria-label="تبديل اللغة">
+                    <span class="lang-toggle-text">English</span>
+                </button>
+                <button class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" aria-label="تبديل المظهر">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <a href="{% url 'chat' %}" class="btn btn-primary"><span data-translate="btn_start_conv">Start Conversation</span></a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <h1 class="page-title">مصادر ودعم</h1>
+            <p class="page-subtitle">مقالات ونصائح ودعم فوري عند الحاجة</p>
+        </div>
+
+        <div class="page-shell">
+            <!-- Backend note: كل بطاقة من هون بتنجم تجي من موديل Article/Resource (tag, title, excerpt, url) -->
+            <div class="resources-grid">
+                <div class="card resource-card">
+                    <span class="resource-tag">القلق</span>
+                    <h3 class="resource-title"> 5طرق للتعامل مع نوبات القلق</h3>
+                    <p class="resource-desc">تمارين تنفس وتقنيات تأريض بسيطة تقدري تستخدميها بأي لحظة.</p>
+                    <a href="https://www.annajah.net/5-%D8%AE%D8%B7%D9%88%D8%A7%D8%AA-%D8%A8%D8%B3%D9%8A%D8%B7%D8%A9-%D9%84%D9%84%D8%AA%D8%AE%D9%84%D8%B5-%D9%85%D9%86-%D9%86%D9%88%D8%A8%D8%A7%D8%AA-%D8%A7%D9%84%D9%82%D9%84%D9%82-article-22306" class="resource-link"  >اقرأي المزيد <i class="fa-solid fa-arrow-left"></i></a>
+                </div>
+                <div class="card resource-card">
+                    <span class="resource-tag">النوم</span>
+                    <h3 class="resource-title">روتين مسائي يحسّن نوعية نومك</h3>
+                    <p class="resource-desc">خطوات بسيطة قبل النوم بساعة توصلك لنوم أعمق وأهدأ.</p>
+                    <a href="https://www.msn.com/ar-eg/health/mindandbody/%D8%A7%D9%84%D8%AA%D8%B2%D9%85-%D8%A8%D9%87-%D9%8Y%D9%85%D9%8A%D9%8B%D8%A7-%D8%B1%D9%88%D8%AA%D9%8A%D9%86-%D9%85%D8%B3%D8%A7%D8%A6%D9%8A-%D9%8Y%D8%B9%D8%B2%D8%B2-%D8%AC%D9%88%D8%AF%D8%A9-%D9%86%D9%88%D9%85%D9%83/ar-AA1TSv8Y" class="resource-link">اقرأ المزيد <i class="fa-solid fa-arrow-left"></i></a>
+                </div>
+                <div class="card resource-card">
+                    <span class="resource-tag">ضغط الشغل</span>
+                    <h3 class="resource-title">كيف تحط حدود صحية بشغلك</h3>
+                    <p class="resource-desc">التعرف على علامات الاحتراق الوظيفي والتعامل معها بدري.</p>
+                    <a href="https://www.youm7.com/story/2024/11/27/%D9%84%D9%88-%D9%85%D8%B4-%D8%B9%D8%A7%D8%B1%D9%81-%D8%AA%D9%88%D8%A7%D8%B2%D9%86-%D8%A8%D9%8A%D9%86-%D8%AD%D9%8A%D8%A7%D8%AA%D9%83-%D9%88%D8%B4%D8%BA%D9%84%D9%83-6-%D8%B7%D8%B1%D9%82-%D9%87%D8%AA%D8%B3%D8%A7%D8%B9%D8%AF%D9%83/6791020#:~:text=%D8%A5%D8%B0%D8%A7%20%D8%B4%D8%B9%D8%B1%D8%AA%20%D8%A3%D9%86%20%D８%B9"D８%A1%20%D８%B9"D９%45" %D９%45" %D９%45" %D９%45" %D９%45" %D９%45" %D９%45" %D９%45" %D９%45" %D９%45" %D９%45" %D９%45" %D９%45" %D９%45" %D９%45" %D９%45" %D９%45" %D９%45" %D９%45" %D９%45" %D９%45" %D９%45" %D９%45" %D９%45" %D９%45" %D９%45" % D１%" class="resource-link">اقرأ المزيد <i class="fa-solid fa-arrow-left"></i></a>
+                </div>
+                <div class="card resource-card">
+                    <span class="resource-tag">العلاقات</span>
+                    <h3 class="resource-title">التواصل الفعّال مع من حولك</h3>
+                    <p class="resource-desc">طرق للتعبير عن مشاعرك بوضوح دون خوف من الحكم عليك.</p>
+                    <a href="https://www.how-ar.com/how-to-express-your-feelings-clearly/" class="resource-link">اقرأ المزيد <i class="fa-solid fa-arrow-left"></i></a>
+                </div>
+                <div class="card resource-card">
+                    <span class="resource-tag">التأمل</span>
+                    <h3 class="resource-title">تمرين تأمل موجّه لمدة 10 دقائق</h3>
+                    <p class="resource-desc">جلسة قصيرة تساعدك ترجع لمركزك بأي وقت من اليوم.</p>
+                    <a href="https://www.youtube.com/watch?v=ZToicYcHIOU&t=2s" class="resource-link">اقرأ المزيد <i class="fa-solid fa-arrow-left"></i></a>
+                </div>
+                <div class="card resource-card">
+                    <span class="resource-tag">تقدير الذات</span>
+                    <h3 class="resource-title">وقف عن جلد الذات: خطوات عملية</h3>
+                    <p class="resource-desc">كيف تلاحظ حديثك الداخلي القاسي وتستبدله بتعاطف حقيقي.</p>
+                    <a href="https://www.dryousefalraoush.com/blog/mdwntn-3/lthdth-m-ldht-kyf-tsbh-hwrtk-ldkhly-srw-njhk-w-fshlk-53" class="resource-link">اقرأ المزيد <i class="fa-solid fa-arrow-left"></i></a>
+                </div>
+            </div>
+
+            <!-- Backend note: أرقام/روابط الطوارئ لازم تجي من إعدادات ثابتة (settings) قابلة للتعديل حسب الدولة -->
+            <div id="emergency">
+                <div class="emergency-text">
+                    <h3>محتاج مساعدة فورية؟</h3>
+                    <p>إذا كنت بأزمة أو خطر مباشر، لا تترد بالتواصل مع جهة مختصة بأقرب وقت.</p>
+                </div>
+                <div class="emergency-actions">
+                    <a href="#" class="btn btn-secondary">خط الدعم النفسي</a>
+                    <a href="#" class="btn btn-secondary">تواصل مع مختص</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="resources.html#emergency" class="footer-link">Contact Support</a>
+                <a href="#" class="footer-link">Terms of Service</a>
+                <a href="#" class="footer-link">Privacy Policy</a>
+            </div>
+            <div>
+                <div class="footer-logo-text">Nour AI</div>
+                <div class="footer-copyright">Nour AI. Guided by clarity 2026 ©</div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

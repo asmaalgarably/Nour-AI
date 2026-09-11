@@ -1,0 +1,194 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nour AI | مساحة آمنة للتحدث والتأمل</title>
+    <meta name="description" content="Nour AI uses artificial intelligence to provide empathetic conversations and emotional support whenever you need it.">
+    <link rel="icon" type="image/svg+xml" href="{% static 'assets/favicon.svg' %}">
+    <!-- أيقونات فونت أوسم ومجموعة الخطوط -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <!-- مؤثر التدرج اللطيف للخلفية -->
+    <div class="ambient-bg"></div>
+
+    <!-- الهيدر الرئيسي للموقع (Navbar) -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <span>Nour AI</span>
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active" data-translate="nav_home">الرئيسية</a></li>
+                <li><a href="{% url 'dashboard' %}" class="nav-link" data-translate="nav_dashboard">لوحة التحكم</a></li>
+                <li><a href="{% url 'resources' %}" class="nav-link" data-translate="nav_resources">المصادر</a></li>
+                <li><a href="{% url 'about' %}" class="nav-link" data-translate="nav_about">حول الذكاء الاصطناعي</a></li>
+            </ul>
+
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <!-- تحويل اللغة -->
+                <button class="theme-toggle lang-toggle" onclick="toggleLanguage()" aria-label="تبديل اللغة">
+                    <span class="lang-toggle-text">English</span>
+                </button>
+                <!-- المظهر -->
+                <button class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" aria-label="تبديل المظهر">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <a href="{% url 'chat' %}" class="btn btn-primary">
+                    <span data-translate="btn_start_conv">Start Conversation</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- المحتوى الرئيسي للموقع -->
+    <main>
+        
+        <!-- قسم البطل (Hero Section) -->
+        <section class="hero-section" id="home">
+            <!-- شارة الخصوصية تم حذفها بطلب المستخدم -->
+            
+            <h1 class="hero-title" data-translate="hero_title">Nour AI: مساحة آمنة للتحدث<br>والتأمل</h1>
+            
+            <p class="hero-subtitle" data-translate="hero_subtitle">
+                Nour AI uses artificial intelligence to provide empathetic conversations and emotional support whenever you need it
+            </p>
+            
+            <div class="hero-buttons">
+                <a href="{% url 'chat' %}" class="btn btn-primary">
+                    <span data-translate="btn_start_conv">Start Conversation</span>
+                </a>
+                <a href="{% url 'about' %}" class="btn btn-secondary">
+                    <span data-translate="btn_how_it_works">How it works</span>
+                </a>
+            </div>
+
+            <!-- عرض التطبيق (Hero Mockup) -->
+            <div class="hero-mockup-container">
+                <img src="{% static 'assets/serene_lake.jpg' %}" alt="واجهة تطبيق نور AI" class="hero-mockup-image">
+            </div>
+        </section>
+
+        <!-- مؤشرات الأمان والثقة (Trust Signals Bar) -->
+        <section class="trust-bar">
+            <div class="trust-item">
+                <i class="fa-solid fa-lock"></i>
+                <span data-translate="trust_enc">End-to-end Encryption</span>
+            </div>
+            <div class="trust-item">
+                <i class="fa-solid fa-user-check"></i>
+                <span data-translate="trust_human">Human-centered AI</span>
+            </div>
+            <div class="trust-item">
+                <i class="fa-solid fa-earth-americas"></i>
+                <span data-translate="trust_arabic">Arabic Native</span>
+            </div>
+            <div class="trust-item">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span data-translate="trust_hipaa">HIPAA Compliant Standard</span>
+            </div>
+        </section>
+
+        <!-- قسم الميزات المصممة لدعم الصحة النفسية -->
+        <section id="features">
+            <div class="section-header">
+                <h2 class="section-title" data-translate="sec_features_title">مصمم لدعم صحتك النفسية</h2>
+                <p class="section-subtitle" data-translate="sec_features_subtitle">ميزات ذكية، خصوصية مطلقة، ودعم لا يتوقف</p>
+            </div>
+
+            <div class="features-grid">
+                
+                <!-- بطاقة 1: فهم اللغة العربية (ممتدة رأسياً باللون النيلي) -->
+                <div class="card-arabic">
+                    <div class="card-arabic-content">
+                        <div class="icon-badge icon-badge-white">
+                            <i class="fa-solid fa-language"></i>
+                        </div>
+                        <h3 data-translate="card1_title">Arabic Language<br>Understanding</h3>
+                        <p data-translate="card1_desc">يدعم اللغة العربية بلهجاتها المختلفة لضمان تجربة طبيعية وسلسة دون حواجز لغوية.</p>
+                    </div>
+                    <a href="{% url 'about' %}" class="card-arabic-link">
+                        <span data-translate="card1_learn">Learn more</span>
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </a>
+                </div>
+
+                <!-- بطاقة 2: الدعم العاطفي بالذكاء الاصطناعي (أبيض) -->
+                <div class="card-standard">
+                    <div class="card-standard-header">
+                        <div class="icon-badge icon-badge-primary">
+                            <i class="fa-regular fa-heart"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 data-translate="card2_title">AI Emotional Support</h3>
+                        <p data-translate="card2_desc">خوارزميات متطورة تفهم نبرة صوتك ومشاعرك لتقديم استجابات متعاطفة ومخصصة تساعدك على تجاوز اللحظات الصعبة.</p>
+                    </div>
+                </div>
+
+                <!-- بطاقة 3: تجربة الدعم المخصصة (تم تغيير صورة الهاتف إلى صورة مرونة الدماغ بطلب المستخدم) -->
+                <div class="card-personalized">
+                    <div class="card-personalized-image-wrapper">
+                        <img src="{% static 'assets/brain_neuroplasticity.jpg' %}" alt="تحليلات الصحة النفسية" class="card-personalized-image">
+                    </div>
+                    <div>
+                        <div class="icon-badge icon-badge-primary">
+                            <i class="fa-solid fa-street-view"></i>
+                        </div>
+                        <h3 data-translate="card3_title">Personalized Support Experience</h3>
+                        <p data-translate="card3_desc">يتعلم Nour AI من تفاعلاتك ليصمم لك رحلة دعم مخصصة تناسب احتياجاتك الفريدة وطريقة تفاعلك مع المساعد.</p>
+                    </div>
+                </div>
+
+                <!-- بطاقة 4: محادثات خاصة وآمنة (أزرق فاتح/لافندر) -->
+                <div class="card-standard card-privacy">
+                    <div class="card-standard-header">
+                        <div class="icon-badge icon-badge-primary" style="background-color: rgba(59, 43, 212, 0.1); color: var(--primary);">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 data-translate="card4_title">Private and Secure Conversations</h3>
+                        <p data-translate="card4_desc">خصوصيتك هي أولويتنا القصوى. يتم تشفير جميع المحادثات وحذفها تلقائياً لضمان سرية تامة.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- قسم البدء الفوري والدعوة للاتصال (CTA) -->
+        <section class="cta-section">
+            <h2 class="cta-title" data-translate="cta_title">هل أنت مستعد للبدء؟</h2>
+            <p class="cta-subtitle" data-translate="cta_subtitle">
+                انضم إلى آلاف المستخدمين الذين وجدوا الراحة والدعم مع Nour AI. محادثتك الأولى تبدأ هنا.
+            </p>
+            <a href="{% url 'chat' %}" class="btn btn-cta">
+                <span data-translate="btn_cta_start">Start Conversation Now</span>
+            </a>
+        </section>
+
+    </main>
+
+    <!-- الفوتر الرئيسي المشترك -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="resources.html#emergency" class="footer-link">Contact Support</a>
+                <a href="#" class="footer-link">Terms of Service</a>
+                <a href="#" class="footer-link">Privacy Policy</a>
+            </div>
+            <div>
+                <div class="footer-logo-text">Nour AI</div>
+                <div class="footer-copyright">Nour AI. Guided by clarity 2026 ©</div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

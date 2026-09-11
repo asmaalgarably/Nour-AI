@@ -1,0 +1,142 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم | Nour AI</title>
+    <link rel="icon" type="image/svg+xml" href="{% static 'assets/favicon.svg' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+{% csrf_token %}
+    <div class="ambient-bg"></div>
+
+    <header>
+        <div class="nav-container">
+            <a href="{% url 'index' %}" class="logo"><span>Nour AI</span></a>
+            <ul class="nav-menu">
+                <li><a href="{% url 'index' %}" class="nav-link" data-translate="nav_home">الرئيسية</a></li>
+                <li><a href="{% url 'dashboard' %}" class="nav-link active" data-translate="nav_dashboard">لوحة التحكم</a></li>
+                <li><a href="{% url 'resources' %}" class="nav-link" data-translate="nav_resources">المصادر</a></li>
+                <li><a href="{% url 'about' %}" class="nav-link" data-translate="nav_about">حول الذكاء الاصطناعي</a></li>
+            </ul>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <button class="theme-toggle lang-toggle" onclick="toggleLanguage()" aria-label="تبديل اللغة">
+                    <span class="lang-toggle-text">English</span>
+                </button>
+                <button class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" aria-label="تبديل المظهر">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <a href="{% url 'chat' %}" class="btn btn-primary"><span data-translate="btn_start_conv">Start Conversation</span></a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <h1 class="page-title">أهلاً بك من جديد 👋</h1>
+            <p class="page-subtitle">هيك عم تتطور رحلتك مع Nour AI هالأسبوع</p>
+        </div>
+
+        <div class="page-shell">
+            <div class="dashboard-grid">
+
+                <!-- إحصائيات سريعة -->
+                <!-- sessions_count جاي من الـ view فعليًا. أيام متتالية ومستوى الاستقرار لسا ثابتة لحد ما نعمل إلهم منطق/موديل لاحقًا -->
+                <div class="card stat-card">
+                    <span class="stat-label">جلسات هالشهر</span>
+                    <span class="stat-value">{{ sessions_count }}</span>
+                    <span class="stat-trend"><i class="fa-solid fa-arrow-trend-up"></i> أكتر بـ 3 عن الشهر الماضي</span>
+                </div>
+                <div class="card stat-card">
+                    <span class="stat-label">أيام متتالية</span>
+                    <span class="stat-value">{{ day_streak }}</span>
+                    <span class="stat-trend"><i class="fa-solid fa-fire"></i> استمر هيك</span>
+                </div>
+                <div class="card stat-card">
+                    <span class="stat-label">مستوى الاستقرار</span>
+                    <span class="stat-value">{{ stability_level }}</span>
+                    <span class="stat-trend"><i class="fa-solid fa-leaf"></i> تحسّن ملحوظ</span>
+                </div>
+
+                <!-- متتبع المزاج -->
+                <div class="card mood-tracker">
+                    <h3 style="font-weight:700; margin-bottom:0.25rem;">كيف حاسس اليوم؟</h3>
+                    <p style="color:var(--text-secondary); font-size:0.9rem;">اختار الحالة الأقرب لمشاعرك الحالية</p>
+                    <div class="mood-scale">
+                        <div class="mood-option" data-mood-value="1"><span class="mood-emoji">😔</span>صعب</div>
+                        <div class="mood-option" data-mood-value="2"><span class="mood-emoji">😕</span>متوتر</div>
+                        <div class="mood-option" data-mood-value="3"><span class="mood-emoji">🙂</span>عادي</div>
+                        <div class="mood-option" data-mood-value="4"><span class="mood-emoji">😊</span>مرتاح</div>
+                        <div class="mood-option" data-mood-value="5"><span class="mood-emoji">😄</span>ممتاز</div>
+                    </div>
+                    {% if latest_mood %}
+                    <p style="color:var(--text-muted); font-size:0.78rem; margin-top:0.75rem;">آخر مزاج سجّلته: {{ latest_mood.timestamp|timesince }} قبل</p>
+                    {% endif %}
+                </div>
+
+                <!-- سجل الجلسات -->
+                <div class="card session-list">
+                    <h3 style="font-weight:700; margin-bottom:0.5rem;">آخر الجلسات</h3>
+                    {% for session in recent_sessions %}
+                    <div class="session-row">
+                        <span>{{ session.session_type }}</span>
+                        <span class="session-date">{{ session.date|timesince }} قبل</span>
+                    </div>
+                    {% empty %}
+                    <p style="color:var(--text-muted); font-size:0.85rem;">لسا ما في جلسات مسجّلة</p>
+                    {% endfor %}
+                    <a href="/chat/" class="resource-link" style="margin-top:0.5rem;">عرض كل الجلسات <i class="fa-solid fa-arrow-left"></i></a>
+                </div>
+
+                <!-- تذكيرات (ثابتة حاليًا) -->
+                <div class="card reminder-card">
+                    <h3 style="font-weight:700;">تذكيرات لطيفة</h3>
+                    <div class="reminder-item"><i class="fa-solid fa-droplet"></i><span>خذ وقتك، اشرب مي وارتاح شوي</span></div>
+                    <div class="reminder-item"><i class="fa-solid fa-moon"></i><span>حاول تنام بوقت ثابت هالأسبوع</span></div>
+                    <div class="reminder-item"><i class="fa-solid fa-comment-dots"></i><span>ما ضيعت محادثتك اليومية بعد</span></div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="{%url 'resources' %}" class="footer-link">Contact Support</a>
+                <a href="#" class="footer-link">Terms of Service</a>
+                <a href="#" class="footer-link">Privacy Policy</a>
+            </div>
+            <div>
+                <div class="footer-logo-text">Nour AI</div>
+                <div class="footer-copyright">Nour AI. Guided by clarity 2026 ©</div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/script.js' %}"></script>
+    <script>
+        function getCsrfToken() {
+            const el = document.querySelector('[name=csrfmiddlewaretoken]');
+            return el ? el.value : '';
+        }
+        document.querySelectorAll('.mood-option').forEach((btn) => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.mood-option').forEach((b) => b.classList.remove('active'));
+                btn.classList.add('active');
+                fetch('/api/mood/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCsrfToken(),
+                    },
+                    body: JSON.stringify({ mood_value: btn.getAttribute('data-mood-value') }),
+                });
+            });
+        });
+    </script>
+</body>
+</html>
