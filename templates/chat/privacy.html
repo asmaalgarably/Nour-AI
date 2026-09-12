@@ -1,0 +1,102 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سياسة الخصوصية | Nour AI</title>
+    <link rel="icon" type="image/svg+xml" href="{% static 'assets/favicon.svg' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <div class="ambient-bg"></div>
+
+    <header>
+        <div class="nav-container">
+            <a href="{% url 'index' %}" class="logo"><span>Nour AI</span></a>
+            <ul class="nav-menu">
+                <li><a href="{% url 'index' %}" class="nav-link" data-translate="nav_home">الرئيسية</a></li>
+                <li><a href="{% url 'dashboard' %}" class="nav-link" data-translate="nav_dashboard">لوحة التحكم</a></li>
+                <li><a href="{% url 'resources' %}" class="nav-link" data-translate="nav_resources">المصادر</a></li>
+                <li><a href="{% url 'about' %}" class="nav-link" data-translate="nav_about">حول الذكاء الاصطناعي</a></li>
+            </ul>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <button class="theme-toggle lang-toggle" onclick="toggleLanguage()" aria-label="تبديل اللغة">
+                    <span class="lang-toggle-text">English</span>
+                </button>
+                <button class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" aria-label="تبديل المظهر">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <a href="{% url 'chat' %}" class="btn btn-primary"><span data-translate="btn_start_conv">Start Conversation</span></a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-header" style="text-align:center;">
+            <h1 class="page-title" data-translate="privacy_title">سياسة الخصوصية</h1>
+            <p class="page-subtitle" data-translate="privacy_subtitle">كيف نتعامل مع بياناتك ومحادثاتك بمساحة دعم الصحة النفسية</p>
+        </div>
+
+        <div class="page-shell" style="max-width: 780px;">
+            <div class="card" style="margin-bottom:1.25rem;">
+                <h3 style="font-weight:700; margin-bottom:0.5rem;" data-translate="privacy_1_title">نلتزم بخصوصيتك</h3>
+                <p style="color:var(--text-secondary); font-size:0.95rem;" data-translate="privacy_1_text">مساحة Nour AI مبنية على الثقة. بدعمنا للصحة النفسية، ندرك حساسية محادثاتك ونلتزم بالتعامل معها بعناية فائقة وشفافية كاملة. لا نبيع بياناتك إطلاقاً.</p>
+            </div>
+
+            <div class="card" style="margin-bottom:1.25rem;">
+                <h3 style="font-weight:700; margin-bottom:0.5rem;" data-translate="privacy_2_title">البيانات التي نجمعها</h3>
+                <p style="color:var(--text-secondary); font-size:0.95rem;" data-translate="privacy_2_text">نجمع فقط الحد الأدنى من البيانات اللازمة لتشغيل الخدمة: نصوص المحادثات التي تشاركها معنا، وبعض بيانات الاستخدام الأساسية مثل الجلسات وحالة مزاجك عند تسجيلها عبر لوحة التحكم.</p>
+            </div>
+
+            <div class="card" style="margin-bottom:1.25rem;">
+                <h3 style="font-weight:700; margin-bottom:0.5rem;" data-translate="privacy_3_title">كيف نستخدم محادثاتك</h3>
+                <p style="color:var(--text-secondary); font-size:0.95rem;" data-translate="privacy_3_text">تُستخدم محادثاتك لتوليد ردود داعمة ومخصصة، وتحسين تجربتك مع الذكاء الاصطناعي. لا نشارك محتوى محادثاتك مع أطراف ثالثة لأغراض تسويقية أو غيرها، دون موافقتك الصريحة.</p>
+            </div>
+
+            <div class="card" style="margin-bottom:1.25rem;">
+                <h3 style="font-weight:700; margin-bottom:0.5rem;" data-translate="privacy_4_title">حماية البيانات والأمان</h3>
+                <p style="color:var(--text-secondary); font-size:0.95rem;" data-translate="privacy_4_text">نتخذ تدابير أمان معقولة لحماية بياناتك، من ضمنها تشفير النقل والحد من الوصول إلى البيانات. نظراً للطبيعة الحساسة لمساحة الدعم النفسي، نعمل على الاحتفاظ بالحد الأدنى من البيانات اللازمة فقط.</p>
+            </div>
+
+            <div class="card" style="margin-bottom:1.25rem;">
+                <h3 style="font-weight:700; margin-bottom:0.5rem;" data-translate="privacy_5_title">مشاركة البيانات مع مزودي الخدمة</h3>
+                <p style="color:var(--text-secondary); font-size:0.95rem;" data-translate="privacy_5_text">يعمل Nour AI عبر مزودي خدمات تقنية موثوقين (مثل منصات الذكاء الاصطناعي) لمعالجة طلبات المحادثة، ويتم التعامل مع هذه البيانات وفق شروطهم وبأقل قدر ممكن. لا نشارك بيانات تحدد هويتك مع جهات خارجية إلا عند الاقتضاء القانوني.</p>
+            </div>
+
+            <div class="card" style="margin-bottom:1.25rem;">
+                <h3 style="font-weight:700; margin-bottom:0.5rem;" data-translate="privacy_6_title">نصيحة حول المحتوى الحساس</h3>
+                <p style="color:var(--text-secondary); font-size:0.95rem;" data-translate="privacy_6_text">رغم أن مساحتنا آمنة، ننصحك بعدم مشاركة معلومات تعريفية حساسة مثل الأرقام الشخصية أو التفاصيل الكاملة التي قد تعرّضك للخطر، خاصة في المحادثات المتعلقة بالصحة النفسية.</p>
+            </div>
+
+            <div class="card" style="margin-bottom:1.25rem;">
+                <h3 style="font-weight:700; margin-bottom:0.5rem;" data-translate="privacy_7_title">حقوقك واختياراتك</h3>
+                <p style="color:var(--text-secondary); font-size:0.95rem;" data-translate="privacy_7_text">تحتفظ بالحق في طلب معلومات حول البيانات المحتفظ بها المتعلقة بك، أو طلب تحديثها أو حذفها وفق ما هو متاح تقنياً وقانونياً.</p>
+            </div>
+
+            <div class="card" style="margin-bottom:4rem;">
+                <h3 style="font-weight:700; margin-bottom:0.5rem;" data-translate="privacy_8_title">التحديثات والتواصل</h3>
+                <p style="color:var(--text-secondary); font-size:0.95rem;" data-translate="privacy_8_text">قد نحدّث سياسة الخصوصية من وقت لآخر، وسيظهر أي تحديث في هذه الصفحة. إذا كان لديك أي سؤال حول هذه السياسة، يمكنك التواصل معنا عبر صفحة المصادر أو الدعم. آخر تحديث: سنة 2026.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="{% url 'resources' %}#emergency" class="footer-link">Contact Support</a>
+                <a href="{% url 'terms' %}" class="footer-link">Terms of Service</a>
+                <a href="{% url 'privacy' %}" class="footer-link">Privacy Policy</a>
+            </div>
+            <div>
+                <div class="footer-logo-text">Nour AI</div>
+                <div class="footer-copyright">Nour AI. Guided by clarity 2026 ©</div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

@@ -22,6 +22,12 @@ def chat(request):
 def resources(request):
     return render(request, 'chat/resources.html')
 
+def terms(request):
+    return render(request, 'chat/terms.html')
+
+def privacy(request):
+    return render(request, 'chat/privacy.html')
+
 
 @require_POST
 def chat_api(request):

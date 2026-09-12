@@ -1,0 +1,100 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شروط الاستخدام | Nour AI</title>
+    <link rel="icon" type="image/svg+xml" href="{% static 'assets/favicon.svg' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <div class="ambient-bg"></div>
+
+    <header>
+        <div class="nav-container">
+            <a href="{% url 'index' %}" class="logo"><span>Nour AI</span></a>
+            <ul class="nav-menu">
+                <li><a href="{% url 'index' %}" class="nav-link" data-translate="nav_home">الرئيسية</a></li>
+                <li><a href="{% url 'dashboard' %}" class="nav-link" data-translate="nav_dashboard">لوحة التحكم</a></li>
+                <li><a href="{% url 'resources' %}" class="nav-link" data-translate="nav_resources">المصادر</a></li>
+                <li><a href="{% url 'about' %}" class="nav-link" data-translate="nav_about">حول الذكاء الاصطناعي</a></li>
+            </ul>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <button class="theme-toggle lang-toggle" onclick="toggleLanguage()" aria-label="تبديل اللغة">
+                    <span class="lang-toggle-text">English</span>
+                </button>
+                <button class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" aria-label="تبديل المظهر">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <a href="{% url 'chat' %}" class="btn btn-primary"><span data-translate="btn_start_conv">Start Conversation</span></a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-header" style="text-align:center;">
+            <h1 class="page-title" data-translate="terms_title">شروط الاستخدام</h1>
+            <p class="page-subtitle" data-translate="terms_subtitle">متى تستخدم Nour AI، وكيف، وما الذي يمكن أن تتوقعه</p>
+        </div>
+
+        <div class="page-shell" style="max-width: 780px;">
+            <div class="card" style="margin-bottom:1.25rem;">
+                <h3 style="font-weight:700; margin-bottom:0.5rem;" data-translate="terms_1_title">المساحة التي نقدمها</h3>
+                <p style="color:var(--text-secondary); font-size:0.95rem;" data-translate="terms_1_text">Nour AI هو رفيق محادثة يعمل بالذكاء الاصطناعي، مصمم لتقديم دعم عاطفي ومساحة آمنة للتحدث. المحادثات هنا تتم مع الذكاء الاصطناعي وليست مع أخصائي بشري.</p>
+            </div>
+
+            <div class="card" style="margin-bottom:1.25rem;">
+                <h3 style="font-weight:700; margin-bottom:0.5rem;" data-translate="terms_2_title">ليس بديلاً عن الرعاية المهنية</h3>
+                <p style="color:var(--text-secondary); font-size:0.95rem;" data-translate="terms_2_text">Nour AI هو أداة دعم ورفقة، وليس بديلاً عن استشارة مختص نفسي أو طبيب مرخّص، ولا يُستخدم في التشخيص أو العلاج أو حالات الطوارئ. إذا كنت تواجه أزمة أو خطراً مباشراً، يرجى التواصل فوراً مع جهة مختصة أو خدمات الطوارئ المحلية.</p>
+            </div>
+
+            <div class="card" style="margin-bottom:1.25rem;">
+                <h3 style="font-weight:700; margin-bottom:0.5rem;" data-translate="terms_3_title">استخدامك للخدمة</h3>
+                <p style="color:var(--text-secondary); font-size:0.95rem;" data-translate="terms_3_text">باستخدامك Nour AI، فإنك توافق على استخدام الخدمة بطريقة مسؤولة ومحترمة، وعدم مشاركة محتوى ضار أو مسيء أو غير قانوني. نحتفظ بحق تقييد الوصول إلى الخدمة عند إساءة الاستخدام.</p>
+            </div>
+
+            <div class="card" style="margin-bottom:1.25rem;">
+                <h3 style="font-weight:700; margin-bottom:0.5rem;" data-translate="terms_4_title">الخصوصية والبيانات</h3>
+                <p style="color:var(--text-secondary); font-size:0.95rem;" data-translate="terms_4_text">نأخذ خصوصيتك على محمل الجد. لمزيد من التفاصيل حول كيفية معالجة بياناتك ومحادثاتك، يرجى الاطلاع على سياسة الخصوصية الخاصة بنا.</p>
+                <p style="margin-top:0.6rem;">
+                    <a href="{% url 'privacy' %}" style="color:var(--primary); font-weight:700; text-decoration:underline;" data-translate="privacy_title">سياسة الخصوصية</a>
+                </p>
+            </div>
+
+            <div class="card" style="margin-bottom:1.25rem;">
+                <h3 style="font-weight:700; margin-bottom:0.5rem;" data-translate="terms_5_title">الوصول والتوفر</h3>
+                <p style="color:var(--text-secondary); font-size:0.95rem;" data-translate="terms_5_text">نعمل على إبقاء الخدمة متاحة وموثوقة، لكننا لا نضمن توفراً مستمراً أو تاماً، وقد تتوقف الخدمة مؤقتاً للصيانة أو التحديثات دون إشعار مسبق.</p>
+            </div>
+
+            <div class="card">
+                <h3 style="font-weight:700; margin-bottom:0.5rem;" data-translate="terms_6_title">التعديلات</h3>
+                <p style="color:var(--text-secondary); font-size:0.95rem;" data-translate="terms_6_text">قد نحدّث هذه الشروط من وقت لآخر لتعكس تغييرات في الخدمة أو المتطلبات القانونية. استمرارك في استخدام الخدمة بعد التحديثات يعني قبولك للشروط المحدثة. آخر تحديث لهذه الصفحة: سنة 2026.</p>
+            </div>
+
+            <div class="card" style="margin-bottom:4rem;">
+                <h3 style="font-weight:700; margin-bottom:0.5rem;" data-translate="terms_7_title">التواصل معنا</h3>
+                <p style="color:var(--text-secondary); font-size:0.95rem;" data-translate="terms_7_text">إذا كان لديك أي سؤال حول شروط الاستخدام هذه، فلا تتردد في التواصل معنا من خلال صفحة المصادر أو الدعم.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="{% url 'resources' %}#emergency" class="footer-link">Contact Support</a>
+                <a href="{% url 'terms' %}" class="footer-link">Terms of Service</a>
+                <a href="{% url 'privacy' %}" class="footer-link">Privacy Policy</a>
+            </div>
+            <div>
+                <div class="footer-logo-text">Nour AI</div>
+                <div class="footer-copyright">Nour AI. Guided by clarity 2026 ©</div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

@@ -19,7 +19,7 @@
     <!-- الهيدر الرئيسي للموقع (Navbar) -->
     <header>
         <div class="nav-container">
-            <a href="#" class="logo">
+            <a href="{% url 'index' %}" class="logo">
                 <span>Nour AI</span>
             </a>
             
@@ -90,7 +90,7 @@
             </div>
             <div class="trust-item">
                 <i class="fa-solid fa-shield-halved"></i>
-                <span data-translate="trust_hipaa">HIPAA Compliant Standard</span>
+                <span data-translate="trust_hipaa">Built with Privacy-First Standards</span>
             </div>
         </section>
 
@@ -165,7 +165,7 @@
         <section class="cta-section">
             <h2 class="cta-title" data-translate="cta_title">هل أنت مستعد للبدء؟</h2>
             <p class="cta-subtitle" data-translate="cta_subtitle">
-                انضم إلى آلاف المستخدمين الذين وجدوا الراحة والدعم مع Nour AI. محادثتك الأولى تبدأ هنا.
+                انضم إلينا اليوم وابدأ رحلتك مع Nour AI. محادثتك الأولى تبدأ هنا.
             </p>
             <a href="{% url 'chat' %}" class="btn btn-cta">
                 <span data-translate="btn_cta_start">Start Conversation Now</span>
@@ -179,8 +179,8 @@
         <div class="footer-container">
             <div class="footer-links">
                 <a href="{% url 'resources' %}#emergency" class="footer-link">Contact Support</a>
-                <a href="#" class="footer-link">Terms of Service</a>
-                <a href="#" class="footer-link">Privacy Policy</a>
+                <a href="{% url 'terms' %}" class="footer-link">Terms of Service</a>
+                <a href="{% url 'privacy' %}" class="footer-link">Privacy Policy</a>
             </div>
             <div>
                 <div class="footer-logo-text">Nour AI</div>
