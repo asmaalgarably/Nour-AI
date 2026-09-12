@@ -1,3 +1,5 @@
+import re
+
 from google import genai
 from google.genai import types
 from django.conf import settings
@@ -5,6 +7,14 @@ from django.conf import settings
 from .prompts import build_system_prompt
 
 FALLBACK_REPLY = "آسفة، انقطعت الخدمة لحظياً. جرب مرة تانية ولو استمرت المشكلة تواصل مع الدعم."
+FALLBACK_REPLY_EN = "Sorry, the service is temporarily unavailable. Please try again, and if the issue continues, reach out to support."
+
+_ARABIC_RE = re.compile(r'[\u0600-\u06FF]')
+
+
+def _message_is_arabic(message):
+    """يكتشف إذا كانت الرسالة بالعربية (تحتوي على أحرف عربية) لإرجاع نفس لغة المستخدم."""
+    return bool(_ARABIC_RE.search(message or ''))
 
 _client = None
 
@@ -40,4 +50,4 @@ def generate_reply(message, history=None, user=None):
         ),
     )
     reply = (response.text or '').strip()
-    return reply or FALLBACK_REPLY
+    return reply or (FALLBACK_REPLY if _message_is_arabic(message) else FALLBACK_REPLY_EN)

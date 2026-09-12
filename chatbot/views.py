@@ -8,7 +8,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 import json
 
-from .services import FALLBACK_REPLY, generate_reply
+from .services import FALLBACK_REPLY, FALLBACK_REPLY_EN, _message_is_arabic, generate_reply
 
 def index(request):
     return render(request, 'chat/index.html')
@@ -37,7 +37,8 @@ def chat_api(request):
         message = (data.get('message') or '').strip()
         history = data.get('history') or []
         if not message:
-            return JsonResponse({'error': 'رسالة فارغة'}, status=400)
+            error_msg = 'رسالة فارغة' if _message_is_arabic(data.get('message') or '') else 'Empty message'
+            return JsonResponse({'error': error_msg}, status=400)
 
         user = request.user if request.user.is_authenticated else None
         reply = generate_reply(message, history=history, user=user)
@@ -45,7 +46,8 @@ def chat_api(request):
     except ValueError as e:
         return JsonResponse({'error': str(e)}, status=503)
     except Exception:
-        return JsonResponse({'error': FALLBACK_REPLY}, status=500)
+        fallback = FALLBACK_REPLY if _message_is_arabic(message) else FALLBACK_REPLY_EN
+        return JsonResponse({'error': fallback}, status=500)
 
 
 
